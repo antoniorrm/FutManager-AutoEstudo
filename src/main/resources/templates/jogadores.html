@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <link href="/webjars/materializecss/0.97.7/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"
+    />
+
+    <title>FutManager</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row valign-wrapper">
+            <div class="col s6">
+                <h3>Gerenciador de Jogadores</h3>
+            </div>
+            <div class="col s6">
+                <a href="/times/" class="valign btn-large waves-effect waves-effect grey right">Gerenciar Times</a>
+            </div>
+        </div>
+        <div class="row">
+            <form action="/jogadores/salvar" method="POST">
+                <div class="input-field col s4 ">
+                    <input placeholder="Nome do jogador" type="text" name="nomeJogador" id="nome" class="validate"></input>
+                    <label for="nome">Nome do Jogador</label>
+                </div>
+                <div class="input-field col s4 ">
+                    <input placeholder="Idade" type="text" name="idadeJogador" id="idade" class="validate"></input>
+                    <label for="idade">Idade</label>
+                </div>
+                <div class="col s4">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Adicionar Jogador</button>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <h5>Jogadores Cadastrados</h5>
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Time a qual pertence</th>
+                        <th>Excluir Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="jogador : ${jogadores}">
+	                    <td th:text="${jogador.nome}"></td>
+                        <td th:if="${jogador.time}" th:text="${jogador.time.nome}"></td>
+                        <td th:unless="${jogador.time}">Sem Time</td>
+                        <td><a class="waves-effect waves-teal btn-flat" th:href="@{${'/jogadores/excluir/' + jogador.id}}">X</a></td>
+                    </tr>
+                </tbody>
+            </table>
+          
+        </div>
+
+    </div>
+
+
+    <script src="/webjars/jquery/2.2.4/jquery.js"></script>
+    <script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
+</body>
+
+</html>
